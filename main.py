@@ -2,6 +2,7 @@ import speech_recognition as sr
 import webbrowser
 import pyttsx3
 import pyjokes
+import time
 
 recognizer = sr.Recognizer()
 engine = pyttsx3.init()
@@ -22,34 +23,51 @@ def search(query):
         search(query)
 
 def process_command(c):
+    
     if "open google" in c.lower():
         speak("Opening Google")
         webbrowser.open("https://www.google.com")
+        
     elif "open youtube" in c.lower():
         speak("Opening YouTube")
         webbrowser.open("https://www.youtube.com")
+        
     elif "open github" in c.lower():
         speak("Opening GitHub")
         webbrowser.open("https://www.github.com")
+        
     elif "open instagram" in c.lower():
         speak("Opening Instagram")
         webbrowser.open("https://www.instagram.com")
+        
     elif "open chat gpt" in c.lower():
         speak("Opening ChatGPT")
         webbrowser.open("https://chat.openai.com")
+        
     elif "tell me a joke" in c.lower():
         joke = pyjokes.get_joke()
         speak(joke)
+        
     elif "open" in c.lower():
         q = c.replace("open", "")
         speak(f"Opening {q}")
         webbrowser.open(f"https://www.{q.split()[0]}")
+        
     elif "search" in c.lower():
         search(c)
         
+    elif "what time" in c.lower():
+        current_time = time.strftime("%H:%M")
+        speak(f"The current time is {current_time}")
+        
+    elif "play music" in c.lower():
+        speak("Playing music")
+        q = c.replace("play music", "")
+        webbrowser.open(f"https://www.youtube.com/results?search_query={q}")
 if __name__ == "__main__": 
     speak("Initializing Jarvis.....")
-    while True:
+    Active = True
+    while Active:
         
         r = sr.Recognizer()
         print("Recognizing...")
@@ -67,6 +85,9 @@ if __name__ == "__main__":
                     command = r.recognize_google(audio)
                     print(command)
                     process_command(command) 
+            elif "shutdown" in word.lower():
+                speak("Goodbye sir")
+                Active = False
         except Exception as e:
             print("Error {0}" .format(e))
                     
