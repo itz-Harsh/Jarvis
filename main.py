@@ -3,6 +3,7 @@ import webbrowser
 import pyttsx3
 import pyjokes
 import time
+import os
 
 recognizer = sr.Recognizer()
 engine = pyttsx3.init()
@@ -47,12 +48,7 @@ def process_command(c):
     elif "tell me a joke" in c.lower():
         joke = pyjokes.get_joke()
         speak(joke)
-        
-    elif "open" in c.lower():
-        q = c.replace("open", "")
-        speak(f"Opening {q}")
-        webbrowser.open(f"https://www.{q.split()[0]}")
-        
+
     elif "search" in c.lower():
         search(c)
         
@@ -64,6 +60,17 @@ def process_command(c):
         speak("Playing music")
         q = c.replace("play music", "")
         webbrowser.open(f"https://www.youtube.com/results?search_query={q}")
+        
+    elif "open" in c.lower():
+        app = c.replace("open", "").strip()
+        speak(f"Opening {app}")
+        try:
+            os.system(f"start {app}")
+        except Exception as e:
+            speak(f"Sorry, I could not open {app}.")
+            print(f"Error: {e}")
+            
+            
 if __name__ == "__main__": 
     speak("Initializing Jarvis.....")
     Active = True
@@ -81,7 +88,7 @@ if __name__ == "__main__":
                 speak("Yes sir")
                 with sr.Microphone() as source:
                     print("Listening for command...")
-                    audio = r.listen(source, timeout=3, phrase_time_limit=5)
+                    audio = r.listen(source, timeout=3, phrase_time_limit=6)
                     command = r.recognize_google(audio)
                     print(command)
                     process_command(command) 
