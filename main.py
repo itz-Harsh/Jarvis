@@ -100,20 +100,18 @@ def process_command(c):
             print(f"Error: {e}")
     else:
         # If command is not recognized, use the AI model to respond
-        try:
-            data = ai_process(c.lower())
-            speak(data.lower())
-            command = c.lower()
-            while command.lower() != "ok":
-                with sr.Microphone() as source:
-                    print("AI Listening...")
-                    audio = r.listen(source, timeout=3, phrase_time_limit=6)
-                    command = r.recognize_google(audio)
-                    print(command)
-                final = ai_process(command.lower())
-                speak(final.lower())
-        except Exception as e:
-            pass
+        data = ai_process(c.lower())
+        speak(data.lower())
+        command = c.lower()
+        while "ok" != command.lower():
+            with sr.Microphone() as source:
+                print("AI Listening...")
+                audio = r.listen(source, timeout=3, phrase_time_limit=6)
+                command = r.recognize_google(audio)
+                print(command)
+            final = ai_process(command.lower())
+            speak(final.lower())
+       
 
 if __name__ == "__main__": 
     # Main loop to keep Jarvis running and listening for commands
@@ -133,7 +131,7 @@ if __name__ == "__main__":
                 speak("Yes sir")
                 with sr.Microphone() as source:
                     print("Listening for command...")
-                    audio = r.listen(source, timeout=3, phrase_time_limit=6)
+                    audio = r.listen(source, timeout=4, phrase_time_limit=6)
                     command = r.recognize_google(audio)
                     print(command)
                     process_command(command) 
