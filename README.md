@@ -67,29 +67,34 @@ pip install -r requirement.txt
 ---
 
 
+...
 ### 🧠 Unlock Full AI Potential (Optional)
 
-To enable Jarvis to answer any question using a local AI model, you need to install [Ollama](https://ollama.com/) and run the `phi` model locally on your system.
+To enable Jarvis to answer any question using a powerful AI model, you can use [Gemini AI](https://ai.google.dev/gemini-api/docs/quickstart) from Google.
 
 **Steps:**
 
-1. **Install Ollama**  
-   Download and install Ollama from [https://ollama.com/download](https://ollama.com/download) for your operating system.
+1. **Get a Gemini API Key**  
+   - Sign up and generate an API key from [Google AI Studio](https://makersuite.google.com/app/apikey).
 
-2. **Pull the Phi Model**  
-   Open your terminal and run:
-   ```bash
-   ollama pull phi
-   ```
+2. **Set Up Your API Key**  
+   - Create a `.env` file in your project directory.
+   - Add your Gemini API key like this:
+     ```
+     api_key=YOUR_GEMINI_API_KEY
+     ```
 
-3. **Start the Ollama Service**  
-   Make sure Ollama is running. By default, it listens on `http://localhost:11434`.
+3. **Install Requirements**  
+   - Make sure you have installed all dependencies:
+     ```bash
+     pip install -r requirement.txt
+     ```
 
 4. **Run Jarvis**  
-   Now, when you ask Jarvis any question it doesn't recognize as a command, it will use the local AI model to answer.
+   - Now, when you ask Jarvis any question it doesn't recognize as a command, it will use Gemini AI to answer.
 
 ---
 
 **Note:**  
-- Ollama and the phi model are only required if you want Jarvis to answer general questions using AI.  
-- For basic voice commands and web automation, Ollama is not required.
+- Gemini AI is only required if you want Jarvis to answer general questions using AI.  
+- For basic voice commands and web automation, Gemini AI is not required.
